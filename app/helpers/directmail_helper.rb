@@ -1,0 +1,2 @@
+module DirectmailHelper
+end
