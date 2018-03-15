@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <div class="">
-      <%= link_to "back", :back %>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <div class="">
+    <%= link_to "back", :back %>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p><strong>Email</strong></p>
+        <div class="form-group">
+          <label for="from">From:</label>
+          <textarea class="form-control" rows="1" id="from"><%= @from %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject:</label>
+          <textarea class="form-control" rows="1" id="subject"><%= @subject %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="body">Body:</label>
+          <textarea class="form-control" rows="5" id="body"><%= @body %></textarea>
+        </div>
+
+      </div>
+      <div class="col">
+        <p><strong>Programming Grid</strong></p>
+        PG stuff will go here
+      </div>
     </div>
-    This is where I will put the email information
-  </body>
+  </div>
+</body>
 </html>
