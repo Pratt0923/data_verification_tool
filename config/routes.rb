@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root to: "email#index"
-  get '/' => 'email#index'
+  root to: 'pages#home'
+
+  get '/uploads', to: 'pages#upload'
   get '/emails', to: 'email#emails'
   get '/directmail', to: 'directmail#index'
 end
