@@ -133,10 +133,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    ruby-msg (1.5.2)
-      ruby-ole (>= 1.2.8)
-      vpim (>= 0.360)
-    ruby-ole (1.2.12.1)
+    roo (2.7.1)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.5)
@@ -176,7 +175,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.7)
       execjs (>= 0.3.0, < 3)
-    vpim (13.11.11)
     web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -203,7 +201,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.1)
   rails-pry
-  ruby-msg
+  roo
   sass-rails (~> 5.0)
   selenium-webdriver
   spring

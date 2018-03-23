@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="">
+      <%= link_to "back", :back %>
+    </div>
+
+    <table>
+    <!-- ruby code ______ merge variables from PG -->
+    <% @direct_mail_merge_variable.each_with_index do |variable, index| %>
+      <tr>
+        <% @direct_mail_merge_variable[index].each do |variable|  %>
+          <% if index == 0 %>
+            <th><%= variable %></th>
+          <% else %>
+            <td><%= variable %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    <!-- end ruby code -->
+    </table>
+
+  </body>
+</html>

@@ -1,8 +1,4 @@
-class Email
-attr_accessor :body, :from, :subject
-  def initialize(body, from, subject)
-    @body = body
-    @from = from
-    @subject = subject
-  end
+class Email < ActiveRecord::Base
+  serialize :correct_row, Array
+  serialize :qa_list_headers, Array
 end
