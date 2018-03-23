@@ -128,6 +128,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    roo (2.7.1)
+      nokogiri (~> 1)
+      rubyzip (~> 1.1, < 2.0.0)
     ruby-msg (1.5.2)
       ruby-ole (>= 1.2.8)
       vpim (>= 0.360)
@@ -197,6 +200,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.1)
   rails-pry
+  roo
   ruby-msg
   sass-rails (~> 5.0)
   selenium-webdriver
