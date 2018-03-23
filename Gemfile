@@ -12,6 +12,8 @@ gem 'mail'
 gem 'pry-rails'
 gem 'rails-pry'
 gem 'ruby-msg'
+gem 'roo'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
