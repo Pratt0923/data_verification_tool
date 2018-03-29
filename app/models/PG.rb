@@ -6,8 +6,6 @@ class PG
     @email_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Programming_Grid.xlsx")
     @email_sheet.default_sheet = 'Merge Variables' #name of tab
     @qa_list = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/QA.csv")
-
-
     @direct_mail_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Direct_Mail_Programming_Grid.xlsx")
     @direct_mail_sheet.default_sheet = 'Follow Up Mail_Imp_Grid' #name of tab
   end
@@ -24,7 +22,6 @@ class PG
       end
       #only email
       if (sheet == @email_sheet) && (self.qa_list.row(current_row).include?(cust_number.captures.first))
-
         @correct_row = self.qa_list.row(current_row)
         @qa_list_headers = self.qa_list.row(1)
       end
@@ -33,19 +30,4 @@ class PG
     end
     return all_merge_variables
   end
-
-  # def direct_mail_merge_variables
-  #   current_row = 0
-  #   tab = []
-  #   directmail_merge_variables = []
-  #   until current_row == @direct_mail_sheet.last_row do #do something until the last row is hit
-  #     tab.push(@direct_mail_sheet.row(current_row))
-  #     if tab.flatten.include?("Variable Position") #when we reach the versioning section do thi
-  #       directmail_merge_variables.push(@direct_mail_sheet.row(current_row))
-  #       break if ((@direct_mail_sheet.row(current_row).all? &:blank?) == true)
-  #     end
-  #     current_row += 1
-  #   end
-  #   return directmail_merge_variables
-  # end
 end

@@ -3,8 +3,7 @@ require 'roo'
 require 'PG'
 
 class EmailsController < ApplicationController
-
-  def index
+  def main
   end
 
   def emails
@@ -17,14 +16,11 @@ class EmailsController < ApplicationController
       cust_number = /(\d+)(?!.*\d)/.match(@body)
       programming_grid = PG.new
 
-
       @email_merge_variable = programming_grid.merge_variables(programming_grid.email_sheet, "MV 10 =", cust_number)
-      @correct_row = programming_grid.correct_row
-      @qa_list_row = programming_grid.qa_list_headers
+      # @correct_row = programming_grid.correct_row
+      # @qa_list_row = programming_grid.qa_list_headers
 
-      # @qa_list_row, @correct_row = sanitize_qa_list
-      # binding.pry
-
+      headers, data = sanitize_qa_list(programming_grid.qa_list_headers, programming_grid.correct_row)
       # Hosptial is spelled wrong ?????????????
 
       Email.create(
@@ -32,20 +28,20 @@ class EmailsController < ApplicationController
         from: @from,
         body: @body,
         cust_num: cust_number.captures.first,
-        correct_row: @correct_row,
-        qa_list_headers: @qa_list_row
+        correct_row: data,
+        qa_list_headers: headers
       )
-      @all_emails = Email.all
     end
+    @all_emails = Email.all
   end
 
   def clear
     Email.delete_all
-    redirect_to :emails
+    redirect_to :root
   end
 
 
-  def sanitize_qa_list
+  def sanitize_qa_list(qa_row, qa_data)
     mv_keep = [
       "CUST_NO",
       "FIRST_NAME",
@@ -66,10 +62,15 @@ class EmailsController < ApplicationController
       "MERGE_VAR_14",
       "MERGE_VAR_15"
     ]
-    @qa_list_row.reject {
-      |item| mv_keep.include?(item)
-      @correct_row.delete_at(item.index(item))
-    }
-    return @qa_list_row, @correct_row
-  end
+    data = []
+    headers = []
+#I need to fix this part. its not working really
+      qa_row.each do |item|
+        if mv_keep.include?(item) && !qa_data[qa_row.index(item)].nil?
+          data.push(qa_data[qa_row.index(item)])
+          headers.push(item)
+        end
+      end
+      return headers, data
+    end
 end
