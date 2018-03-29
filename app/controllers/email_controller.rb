@@ -4,7 +4,7 @@ require 'PG_import'
 
 class EmailController < ApplicationController
 
-  def index
+  def main
   end
 
   def emails
@@ -19,12 +19,10 @@ class EmailController < ApplicationController
 
 
       @email_merge_variable = programming_grid.merge_variables(programming_grid.email_sheet, "MV 10 =", cust_number)
-      @correct_row = programming_grid.correct_row
-      @qa_list_row = programming_grid.qa_list_headers
+      # @correct_row = programming_grid.correct_row
+      # @qa_list_row = programming_grid.qa_list_headers
 
-      # @qa_list_row, @correct_row = sanitize_qa_list
-      # binding.pry
-
+      headers, data = sanitize_qa_list(programming_grid.qa_list_headers, programming_grid.correct_row)
       # Hosptial is spelled wrong ?????????????
 
       Email.create(
@@ -32,8 +30,8 @@ class EmailController < ApplicationController
         from: @from,
         body: @body,
         cust_num: cust_number.captures.first,
-        correct_row: @correct_row,
-        qa_list_headers: @qa_list_row
+        correct_row: data,
+        qa_list_headers: headers
       )
       @all_emails = Email.all
     end
@@ -41,35 +39,40 @@ class EmailController < ApplicationController
 
   def clear
     Email.delete_all
-    redirect_to :emails
+    redirect_to :root
   end
 
 
-  # def sanitize_qa_list
-  #   mv_keep = [
-  #     "CUST_NO",
-  #     "FIRST_NAME",
-  #     "LAST_NAME",
-  #     "ADDR_LINE_1",
-  #     "ADDR_LINE_2",
-  #     "ADDR_LINE_3",
-  #     "ADDR_LINE_4",
-  #     "ADDR_LINE_5",
-  #     "POSTAL_CODE",
-  #     "MERGE_VAR_2",
-  #     "MERGE_VAR_3",
-  #     "MERGE_VAR_5",
-  #     "MERGE_VAR_10",
-  #     "MERGE_VAR_11",
-  #     "MERGE_VAR_12",
-  #     "MERGE_VAR_13",
-  #     "MERGE_VAR_14",
-  #     "MERGE_VAR_15"
-  #   ]
-  #   @qa_list_row.reject {
-  #     |item| mv_keep.include?(item)
-  #     @correct_row.delete_at(item.index(item))
-  #   }
-  #   return @qa_list_row, @correct_row
-  # end
+  def sanitize_qa_list(qa_row, qa_data)
+    mv_keep = [
+      "CUST_NO",
+      "FIRST_NAME",
+      "LAST_NAME",
+      "ADDR_LINE_1",
+      "ADDR_LINE_2",
+      "ADDR_LINE_3",
+      "ADDR_LINE_4",
+      "ADDR_LINE_5",
+      "POSTAL_CODE",
+      "MERGE_VAR_2",
+      "MERGE_VAR_3",
+      "MERGE_VAR_5",
+      "MERGE_VAR_10",
+      "MERGE_VAR_11",
+      "MERGE_VAR_12",
+      "MERGE_VAR_13",
+      "MERGE_VAR_14",
+      "MERGE_VAR_15"
+    ]
+    data = []
+    headers = []
+#I need to fix this part. its not working really
+      qa_row.each do |item|
+        if mv_keep.include?(item) && !qa_data[qa_row.index(item)].nil?
+          data.push(qa_data[qa_row.index(item)])
+          headers.push(item)
+        end
+      end
+      return headers, data
+    end
 end

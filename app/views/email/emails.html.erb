@@ -2,6 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <%= javascript_include_tag('table.js') %>
+
   <title></title>
 </head>
 <body>
@@ -16,6 +18,9 @@
       <div class="col">
         <p><strong>Email</strong></p>
         <% @all_emails.each do |email| %>
+
+
+<div id='1'>
 
 
         <table class="table">
@@ -49,6 +54,9 @@
             <label for="body">Body:</label>
             <textarea class="form-control" rows="5" id="body"><%= email.body %></textarea>
           </div>
+
+</div>
+<p>---------------------------------------------------</p>
         <% end %>
       </div>
       <div class="col">
@@ -76,4 +84,5 @@
     </div>
   </div>
 </body>
+<!-- <script src="/javascripts/table.js"></script> -->
 </html>
