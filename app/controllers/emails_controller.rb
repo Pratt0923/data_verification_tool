@@ -1,21 +1,21 @@
 require 'Email'
 require 'roo'
-require 'PG_import'
+require 'PG'
 
-class EmailController < ApplicationController
+class EmailsController < ApplicationController
 
   def index
   end
 
   def emails
-    Dir["#{ENV["HOME"]}/Desktop/code/Ruby_automation/*.eml"].each do |email|
+    Dir["#{ENV["HOME"]}/Desktop/QA/*.eml"].each do |email|
       mail = Mail.read(email)
       @body = mail.parts[0].body.decoded.gsub(/(?:f|ht)tps?:\/[^\s]+/, '').gsub!(/\r/, '').gsub!(/\n/, ' ')
       @body = @body.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
       @from = mail.from.first
       @subject = mail.subject
       cust_number = /(\d+)(?!.*\d)/.match(@body)
-      programming_grid = PG_import.new
+      programming_grid = PG.new
 
 
       @email_merge_variable = programming_grid.merge_variables(programming_grid.email_sheet, "MV 10 =", cust_number)

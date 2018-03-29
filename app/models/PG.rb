@@ -1,13 +1,11 @@
 require 'roo'
 
-class PG_import
+class PG
   attr_reader :qa_list, :correct_row, :email_sheet, :direct_mail_sheet, :qa_list_headers
   def initialize
-    @email_sheet = Roo::Spreadsheet.open("/Users/apratt/Desktop/code/Ruby_automation/HCEC11308536_8537_8538\ Programming\ Grid.xlsx")
+    @email_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Programming_Grid.xlsx")
     @email_sheet.default_sheet = 'Merge Variables' #name of tab
-    @direct_mail_sheet = Roo::Spreadsheet.open("/Users/apratt/Desktop/code/Ruby_automation/HCEW11000424_HCEW11000430_Programming\ Grid.xlsm")
-    @direct_mail_sheet.default_sheet = 'Follow Up Mail_Imp_Grid' #name of tab
-    @qa_list = Roo::Spreadsheet.open("/Users/apratt/Desktop/code/Ruby_automation/HCEC11308539_01_QA.csv")
+    @qa_list = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/QA.csv")
   end
 
   def merge_variables(sheet, string_include, cust_number)
