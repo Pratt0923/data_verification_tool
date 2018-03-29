@@ -6,6 +6,10 @@ class PG
     @email_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Programming_Grid.xlsx")
     @email_sheet.default_sheet = 'Merge Variables' #name of tab
     @qa_list = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/QA.csv")
+
+
+    @direct_mail_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Direct_Mail_Programming_Grid.xlsx")
+    @direct_mail_sheet.default_sheet = 'Follow Up Mail_Imp_Grid' #name of tab
   end
 
   def merge_variables(sheet, string_include, cust_number)

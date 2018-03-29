@@ -45,31 +45,31 @@ class EmailsController < ApplicationController
   end
 
 
-  # def sanitize_qa_list
-  #   mv_keep = [
-  #     "CUST_NO",
-  #     "FIRST_NAME",
-  #     "LAST_NAME",
-  #     "ADDR_LINE_1",
-  #     "ADDR_LINE_2",
-  #     "ADDR_LINE_3",
-  #     "ADDR_LINE_4",
-  #     "ADDR_LINE_5",
-  #     "POSTAL_CODE",
-  #     "MERGE_VAR_2",
-  #     "MERGE_VAR_3",
-  #     "MERGE_VAR_5",
-  #     "MERGE_VAR_10",
-  #     "MERGE_VAR_11",
-  #     "MERGE_VAR_12",
-  #     "MERGE_VAR_13",
-  #     "MERGE_VAR_14",
-  #     "MERGE_VAR_15"
-  #   ]
-  #   @qa_list_row.reject {
-  #     |item| mv_keep.include?(item)
-  #     @correct_row.delete_at(item.index(item))
-  #   }
-  #   return @qa_list_row, @correct_row
-  # end
+  def sanitize_qa_list
+    mv_keep = [
+      "CUST_NO",
+      "FIRST_NAME",
+      "LAST_NAME",
+      "ADDR_LINE_1",
+      "ADDR_LINE_2",
+      "ADDR_LINE_3",
+      "ADDR_LINE_4",
+      "ADDR_LINE_5",
+      "POSTAL_CODE",
+      "MERGE_VAR_2",
+      "MERGE_VAR_3",
+      "MERGE_VAR_5",
+      "MERGE_VAR_10",
+      "MERGE_VAR_11",
+      "MERGE_VAR_12",
+      "MERGE_VAR_13",
+      "MERGE_VAR_14",
+      "MERGE_VAR_15"
+    ]
+    @qa_list_row.reject {
+      |item| mv_keep.include?(item)
+      @correct_row.delete_at(item.index(item))
+    }
+    return @qa_list_row, @correct_row
+  end
 end
