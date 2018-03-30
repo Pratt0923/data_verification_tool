@@ -7,17 +7,10 @@ class EmailsController < ApplicationController
   end
 
   def email_merge_variables_pick
-    #------------------------------------ THERE MUST BE A WAY TO FIX THIS
     @programming_grid = PG.new
     @merge_variable = @programming_grid.merge_variables(@programming_grid.email_sheet, "MV 10 =", false)
-
-    @merge_variable = @merge_variable.transpose.map { |x, *y| [x, y] }.to_h
-    @merge_variable.each do |k, v|
-      if v.uniq.first.nil?
-        @merge_variable.delete(k)
-      end
-    end
-    #------------------------------------ THERE MUST BE A WAY TO FIX THIS
+    @merge_variable = sanitize_mv_list(@merge_variable)
+    @merge_variable = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10],[11, 12, 13, 14, 15]]
   end
 
   def emails
@@ -52,6 +45,18 @@ class EmailsController < ApplicationController
     redirect_to :root
   end
 
+
+  def sanitize_mv_list(mv)
+    mv = mv.transpose.map { |x, *y| [x, y] }.to_h
+    mv.each do |k, v|
+      if v.uniq.first.nil?
+        mv.delete(k)
+      end
+    end
+    mv = mv.to_a
+    mv.map { |array| array.flatten! }
+    return mv
+  end
 
   def sanitize_qa_list(qa_row, qa_data)
     mv_keep = [

@@ -1,15 +1,20 @@
-<% @merge_variable.each do |k , value|  %>
-  <thead>
-    <th scope="col">
-      <input id="checkBox" type="checkbox" checked="checked">
-      <%= k %>
-    </th>
-  </thead>
-  <tbody>
-    <% value.each do |v| %>
-    <tr>
-    <td><%= v %></td>
-    </tr>
-    <% end %>
-  </tbody>
-<% end %>
+<table>
+  <% @merge_variable.first.each_with_index do |variable, index| %>
+     <tr>
+         <% if index == 0 %>
+           <th>
+             <input type="checkbox" id="thing"></input>
+             <form class="form-inline">
+               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" value="<%= variable %>"></input>
+             </form>
+           </th>
+         <% else %>
+           <td>
+             <form class="form-inline">
+               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" value="<%= variable %>"></input>
+             </form>
+           </td>
+         <% end %>
+     </tr>
+   <% end %>
+   </table>

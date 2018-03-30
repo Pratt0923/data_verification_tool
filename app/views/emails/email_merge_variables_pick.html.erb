@@ -6,20 +6,13 @@
   </head>
   <body>
 
-
-      <p><strong>Programming Grid</strong></p>
-
-      <table class="table">
-
-      <!-- ruby code ______ merge variables from PG -->
-          <%= render "layouts/MV_single_variable" %>
-      <!-- end ruby code -->
-
-      </table>
-
-
-<!-- code pen beings here -->
-
+    <p><strong>Programming Grid</strong></p>
+    <p class="secret">Hide all unchecked</p>
+      <% if @merge_variable.count == 1 %>
+        <%= render partial: "layouts/MV_single_variable" %>
+      <% else %>
+        <%= render partial: "layouts/MV_multiple_variables" %>
+      <% end %>
     <%= link_to "Look at Email Data", emails_path %>
     <% javascript_include_tag "table.js" %>
   </body>

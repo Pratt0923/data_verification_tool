@@ -1,14 +1,10 @@
-// var colors = ['#ff0000', '#00ff00', '#0000ff'];
-// var random_color = colors[Math.floor(Math.random() * colors.length)];
-// document.getElementById('1').style.backgroundColor = random_color;
-// console.log(document.getElementById('1'));
+var toggle_visible = function() {
+    if ($("input#thing").is(':checked')){
+      $( "th:nth-of-type(" + (($(event.target).parent().index()) + 1 ) +  ")" ).toggle()
+      $( "td:nth-of-type(" + (($(event.target).parent().index()) + 1 ) + ")" ).toggle()
+    }
+  };
 
-$("input:checkbox:not(:checked)").each(function() {
-    var column = "table ." + $(this).attr("name");
-    $(column).hide();
-});
+toggle_visible();
 
-$("input:checkbox").click(function(){
-    var column = "table ." + $(this).attr("name");
-    $(column).toggle();
-});
+$( "input[type=checkbox]" ).on( "click", toggle_visible );
