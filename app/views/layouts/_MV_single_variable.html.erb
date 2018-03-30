@@ -1,0 +1,15 @@
+<% @merge_variable.each do |k , value|  %>
+  <thead>
+    <th scope="col">
+      <input id="checkBox" type="checkbox" checked="checked">
+      <%= k %>
+    </th>
+  </thead>
+  <tbody>
+    <% value.each do |v| %>
+    <tr>
+    <td><%= v %></td>
+    </tr>
+    <% end %>
+  </tbody>
+<% end %>

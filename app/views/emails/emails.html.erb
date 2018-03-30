@@ -50,28 +50,7 @@
           </div>
         <% end %>
       </div>
-      <div class="col">
-        <p><strong>Programming Grid</strong></p>
 
-        <table>
-
-        <!-- ruby code ______ merge variables from PG -->
-        <% @email_merge_variable.each_with_index do |variable, index| %>
-          <tr>
-            <% @email_merge_variable[index].each do |variable|  %>
-              <% if index == 0 %>
-                <th><%= variable %></th>
-              <% else %>
-                <td><%= variable %></td>
-              <% end %>
-            <% end %>
-          </tr>
-        <% end %>
-        <!-- end ruby code -->
-
-        </table>
-
-      </div>
     </div>
   </div>
 </body>

@@ -6,6 +6,20 @@ class EmailsController < ApplicationController
   def main
   end
 
+  def email_merge_variables_pick
+    #------------------------------------ THERE MUST BE A WAY TO FIX THIS
+    @programming_grid = PG.new
+    @merge_variable = @programming_grid.merge_variables(@programming_grid.email_sheet, "MV 10 =", false)
+
+    @merge_variable = @merge_variable.transpose.map { |x, *y| [x, y] }.to_h
+    @merge_variable.each do |k, v|
+      if v.uniq.first.nil?
+        @merge_variable.delete(k)
+      end
+    end
+    #------------------------------------ THERE MUST BE A WAY TO FIX THIS
+  end
+
   def emails
     Dir["#{ENV["HOME"]}/Desktop/QA/*.eml"].each do |email|
       mail = Mail.read(email)
@@ -14,14 +28,12 @@ class EmailsController < ApplicationController
       @from = mail.from.first
       @subject = mail.subject
       cust_number = /(\d+)(?!.*\d)/.match(@body)
-      programming_grid = PG.new
 
-      @email_merge_variable = programming_grid.merge_variables(programming_grid.email_sheet, "MV 10 =", cust_number)
-      # @correct_row = programming_grid.correct_row
-      # @qa_list_row = programming_grid.qa_list_headers
-
-      headers, data = sanitize_qa_list(programming_grid.qa_list_headers, programming_grid.correct_row)
-      # Hosptial is spelled wrong ?????????????
+      #------------------------------------ THERE MUST BE A WAY TO FIX THIS
+      @programming_grid = PG.new
+      @merge_variable = @programming_grid.merge_variables(@programming_grid.email_sheet, "MV 10 =", cust_number)
+      #------------------------------------ THERE MUST BE A WAY TO FIX THIS
+      headers, data = sanitize_qa_list(@programming_grid.qa_list_headers, @programming_grid.correct_row)
 
       Email.create(
         subject: @subject,
@@ -64,7 +76,6 @@ class EmailsController < ApplicationController
     ]
     data = []
     headers = []
-#I need to fix this part. its not working really
       qa_row.each do |item|
         if mv_keep.include?(item) && !qa_data[qa_row.index(item)].nil?
           data.push(qa_data[qa_row.index(item)])

@@ -2,3 +2,13 @@
 // var random_color = colors[Math.floor(Math.random() * colors.length)];
 // document.getElementById('1').style.backgroundColor = random_color;
 // console.log(document.getElementById('1'));
+
+$("input:checkbox:not(:checked)").each(function() {
+    var column = "table ." + $(this).attr("name");
+    $(column).hide();
+});
+
+$("input:checkbox").click(function(){
+    var column = "table ." + $(this).attr("name");
+    $(column).toggle();
+});

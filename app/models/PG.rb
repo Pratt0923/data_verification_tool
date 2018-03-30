@@ -21,9 +21,11 @@ class PG
         break if ((sheet.row(current_row).all? &:blank?) == true)
       end
       #only email
-      if (sheet == @email_sheet) && (self.qa_list.row(current_row).include?(cust_number.captures.first))
-        @correct_row = self.qa_list.row(current_row)
-        @qa_list_headers = self.qa_list.row(1)
+      if cust_number
+        if (sheet == @email_sheet) && (self.qa_list.row(current_row).include?(cust_number.captures.first))
+          @correct_row = self.qa_list.row(current_row)
+          @qa_list_headers = self.qa_list.row(1)
+        end
       end
       #end only email
       current_row += 1

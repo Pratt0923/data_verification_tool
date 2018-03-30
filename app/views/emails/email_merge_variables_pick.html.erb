@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+
+      <p><strong>Programming Grid</strong></p>
+
+      <table class="table">
+
+      <!-- ruby code ______ merge variables from PG -->
+          <%= render "layouts/MV_single_variable" %>
+      <!-- end ruby code -->
+
+      </table>
+
+
+<!-- code pen beings here -->
+
+    <%= link_to "Look at Email Data", emails_path %>
+    <% javascript_include_tag "table.js" %>
+  </body>
+</html>
