@@ -4,7 +4,9 @@ class DirectMailsController < ApplicationController
 
   def direct_mail
     programming_grid = PG.new
-    # @merge_variable = programming_grid.direct_mail_merge_variables
-    @direct_mail_merge_variable = programming_grid.merge_variables(programming_grid.direct_mail_sheet, "Variable Position", 0)
+    direct_mail = programming_grid.merge_variables(programming_grid.direct_mail_sheet, "Variable Position", false)
+    @direct_mail_merge_variable = direct_mail.transpose
+    @direct_mail_merge_variable.map! { |column| ((column.drop(1).uniq.first.nil?) ? (column = nil) : column) }
+    @direct_mail_merge_variable.compact!
   end
 end

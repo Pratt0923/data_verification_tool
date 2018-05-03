@@ -1,2 +1,29 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+p {
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2rem;
+}
+
+body > div {
+  margin: 0;
+  padding: 0;
+}
+
+body > div > div > div.col {
+  font-size:1.5rem;
+}
+
+.versioning {
+  font-size: 1.5em;
+}
+.email, .pg {
+  margin-bottom: 3em;
+}
+
+.horizontally_align_results {
+  margin-bottom: 10px;
+}

@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20180316190040) do
     t.string "from"
     t.string "body"
     t.string "cust_num"
-    t.string "correct_row"
-    t.string "qa_list_headers"
+    t.string "qa_list_data"
+    t.string "version"
   end
 
 end

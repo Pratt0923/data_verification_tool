@@ -3,11 +3,16 @@ require 'roo'
 class PG
   attr_reader :qa_list, :correct_row, :email_sheet, :direct_mail_sheet, :qa_list_headers
   def initialize
-    @email_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Programming_Grid.xlsx")
+    begin
+      @email_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Programming_Grid.xlsx")
+    rescue
+      @email_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Programming_Grid.xlsm")
+    end
     @email_sheet.default_sheet = 'Merge Variables' #name of tab
     @qa_list = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/QA.csv")
     @direct_mail_sheet = Roo::Spreadsheet.open("#{ENV["HOME"]}/Desktop/QA/Direct_Mail_Programming_Grid.xlsx")
     @direct_mail_sheet.default_sheet = 'Follow Up Mail_Imp_Grid' #name of tab
+    @notepad = File.read("#{ENV["HOME"]}/Desktop/QA/notepad.txt")
   end
 
   def merge_variables(sheet, string_include, cust_number)
