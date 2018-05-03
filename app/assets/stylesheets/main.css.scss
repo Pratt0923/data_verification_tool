@@ -19,6 +19,7 @@ body > div > div > div.col {
 
 .versioning {
   font-size: 1.5em;
+  color: blue;
 }
 .email, .pg {
   margin-bottom: 3em;
@@ -26,4 +27,17 @@ body > div > div > div.col {
 
 .horizontally_align_results {
   margin-bottom: 10px;
+}
+.back {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: inline;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 2px;
+  color: white;
+  font-size: 15px;
+  background-color: darkgrey;
 }
