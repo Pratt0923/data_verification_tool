@@ -14,15 +14,15 @@
           <!-- email from -->
           <div class="email">
             <div class="horizontally_align_results">
-              <label for="subject">From:</label>
-              <textarea class="form-control" rows="1" id="from"><%= email.from %></textarea>
+              <label for="from">From:</label>
+              <textarea class="form-control from" rows="1" id="from"><%= email.from %></textarea>
             </div>
 
             <!-- email subject -->
             <div class="horizontally_align_results">
               <div class="form-group">
                 <label for="subject">Subject:</label>
-                <textarea class="form-control" rows="1" id="subject"><%= email.subject %></textarea>
+                <textarea class="form-control subject" rows="1" id="subject"><%= email.subject %></textarea>
               </div>
             </div>
 
@@ -30,7 +30,7 @@
             <div class="horizontally_align_results">
               <div class="form-group">
                 <label for="body">Body:</label>
-                <textarea class="form-control" rows="5" id="body"><%= email.body %></textarea>
+                <textarea class="form-control body" rows="5" id="body"><%= email.body %></textarea>
               </div>
             </div>
           </div>
@@ -46,7 +46,8 @@
         <!-- PG from -->
         <div class="pg">
           <div class="horizontally_align_results">
-            <label for="subject">From:</label><br />
+            <label for="pgfrom">From:</label><br />
+            <div id="pgfrom" class="pgfrom">
             <% unless email.qa_list_data["PG_MATCH"] == nil %>
               <% if email.qa_list_data["PG_MATCH"]["from"] %>
                 <% email.qa_list_data["PG_MATCH"]["from"].each do |row| %>
@@ -55,24 +56,28 @@
               <% end %>
             <% end %>
           </div>
+          </div>
 
 
           <!-- PG subject -->
           <div class="horizontally_align_results">
-            <label for="subject">Subject:</label><br />
+            <label for="pgsubject">Subject:</label><br />
+            <div id="pgsubject" class="pgsubject">
             <% unless email.qa_list_data["PG_MATCH"] == nil %>
               <% if email.qa_list_data["PG_MATCH"]["subject"] %>
                 <% email.qa_list_data["PG_MATCH"]["subject"].each do |row| %>
                   <%= row.cell_value %>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
+            </div>
           </div>
 
           <!-- body not implemented yet -->
-          <label for="subject">Body:</label><br />
-          The more you know, the better you can protect yourself against stroke. | View in browser. Five Ways Young People Are Fooled By Stroke   Just because you're not elderly doesn't mean you can't have a stroke  or haven't.  Learn  More     9 Athletes Under 40 Who Suffered Strokes   If they can have a stroke, you should probably worry, too.  Learn  More       Start caring for your health today. Learn where you stand and what you can do to improve your brain health.   Take our free health risk assessment.  Get  Started       About this email:  This email was provided as a service by Johnston-Willis Hospital. Don't miss a single email from Johnston-Willis Hospita  add capital@hcahealthcare.com to your address book.  1401 Johnston Willis Dr. Richmond, VA 23235     Unsubscribe | Privacy Policy   2018 HCA Capital Division Hospitals. All rights reserved. 39340354
-
+          <label for="pgbody">Body:</label><br />
+          <div id="pgbody" class="pgbody">
+            The more you know, the better you can protect yourself against stroke. | View in browser. Five Ways Young People Are Fooled By Stroke   Just because you're not elderly doesn't mean you can't have a stroke  or haven't.  Learn  More     9 Athletes Under 40 Who Suffered Strokes   If they can have a stroke, you should probably worry, too.  Learn  More       Start caring for your health today. Learn where you stand and what you can do to improve your brain health.   Take our free health risk assessment.  Get  Started       About this email:  This email was provided as a service by Johnston-Willis Hospital. Don't miss a single email from Johnston-Willis Hospita  add capital@hcahealthcare.com to your address book.  1401 Johnston Willis Dr. Richmond, VA 23235     Unsubscribe | Privacy Policy   2018 HCA Capital Division Hospitals. All rights reserved. 39340354
+          </div>
           <p class="versioning">Email should be getting the:  <%= email.version %> version. </p>
 
         </div>
