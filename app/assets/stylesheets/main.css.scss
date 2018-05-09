@@ -1,11 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-
+//all the css gets done here.
 p {
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 body > div {
@@ -40,4 +40,8 @@ body > div > div > div.col {
   color: white;
   font-size: 15px;
   background-color: darkgrey;
+}
+
+.highlight {
+  color: red;
 }

@@ -22,9 +22,7 @@ class EmailsController < ApplicationController
       @from = mail.from.first
       @subject = mail.subject
       cust_number = /(\d+)(?!.*\d)/.match(@body)
-      #------------------------------------ THERE MUST BE A WAY TO FIX THIS
       @merge_variable = @programming_grid.merge_variables(@programming_grid.email_sheet, "MV 10 =", cust_number)
-      #------------------------------------ THERE MUST BE A WAY TO FIX THIS
       headers, data = sanitize_qa_list(@programming_grid.qa_list_headers, @programming_grid.correct_row)
       data.reject! { |c| c.empty? }
       qa_list = Hash[headers.zip(data)]

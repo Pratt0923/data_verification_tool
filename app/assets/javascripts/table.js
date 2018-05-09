@@ -5,8 +5,9 @@ function sanitize_email_sections(part, section, pgsection, i) {
   };
   part = part.join("");
 
+// performting the match
   var pg_take_out = $(pgsection)[i].innerHTML.match(part);
-  console.log(pg_take_out[0]);
+  return pg_take_out;
 }
 
 //making the padding for the pg and the email the same
