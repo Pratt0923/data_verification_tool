@@ -4,7 +4,7 @@ class Emails < ActiveRecord::Migration[5.1]
       t.string :from
       t.string :body
       t.string :cust_num
-      t.string :correct_row
-      t.string :qa_list_headers
+      t.string :qa_list_data
+      t.string :version
     end
 end

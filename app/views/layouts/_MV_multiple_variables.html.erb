@@ -1,0 +1,22 @@
+<p>this is the multiple variables one</p>
+
+<table class="table1">
+  <% @merge_variable.each_with_index do |variable, index| %>
+     <tr>
+       <form class="form-inline">
+       <% @merge_variable[index].each do |variable|  %>
+         <% if index == 0 %>
+          <th>
+            <input type="checkbox" id="thing"></input>
+              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" value="<%= variable %>"></input>
+           </th>
+         <% else %>
+           <td>
+               <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" value="<%= variable %>"></input>
+           </td>
+         <% end %>
+       <% end %>
+       </form>
+     </tr>
+   <% end %>
+   </table>

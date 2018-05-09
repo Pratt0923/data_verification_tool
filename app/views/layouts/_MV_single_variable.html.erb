@@ -1,0 +1,25 @@
+
+  <p> this is the single one</p>
+<%= form_tag('/emails', class: "form-inline", method: "post") do -%>
+<table class="table1">
+  <div class="stuff">
+  <% @merge_variable.first.each_with_index do |variable, index| %>
+     <tr>
+
+         <% if index == 0 %>
+           <th>
+             <%= check_box_tag "thing" %>
+             <%= text_field_tag "mv_header[]", variable%>
+           </th>
+         <% else %>
+           <td>
+             <%= text_field_tag "mv_data[]",variable%>
+           </td>
+         <% end %>
+     </tr>
+   <% end %>
+
+     </div>
+   </table>
+   <%= submit_tag "Look at Emails"%>
+<% end %>

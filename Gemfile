@@ -11,6 +11,7 @@ gem 'mail'
 gem 'pry-rails'
 gem 'rails-pry'
 gem 'roo'
+gem 'builder'
 
 gem 'sqlite3'
 gem 'puma', '~> 3.7'
