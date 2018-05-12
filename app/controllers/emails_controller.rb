@@ -37,12 +37,18 @@ class EmailsController < ApplicationController
       @version = compare_correct_row_with_mvs(params, current_email)
       current_email.version = @version
       unless find_line(@programming_grid, current_email.subject, current_email).nil?
-        current_email.qa_list_data["PG_MATCH"] = {
-          "subject"=> find_line(@programming_grid, current_email.subject, current_email).flatten!,
-          "from"=>find_line(@programming_grid, current_email.from, current_email).flatten!
-        }
-        current_email.save!
+          if find_line(@programming_grid, current_email.from, current_email) != nil
+            current_email.qa_list_data["PG_MATCH"] = {
+            "from"=> find_line(@programming_grid, current_email.from, current_email).flatten!
+            }
+          end
+          if find_line(@programming_grid, current_email.subject, current_email) != nil
+            current_email.qa_list_data["PG_MATCH"] = {
+            "subject"=> find_line(@programming_grid, current_email.subject, current_email).flatten!
+            }
+          end
       end
+      current_email.save!
     end
 
     @all_emails = Email.all
@@ -116,30 +122,39 @@ class EmailsController < ApplicationController
     params.values.transpose.each do |e|
       key = e.shift
       value = e
-      h[key] = value
+      if h[key]
+        h[key].push(value)
+        h[key].flatten!
+      else
+        h[key] = value
+      end
     end
     h.each_pair do |key, value|
-      if value.first.include?("-")
-        s = value.first.split("-").first.to_i
-        e = value.first.split("-").last.to_i
-        value = []
-        until s == e + 1
-          value.push(s)
-          s +=1
+      value.each do |val|
+        if val.to_s.include?("-")
+          s = val.split("-").first.to_i
+          e = val.split("-").last.to_i
+          until s == e + 1
+            value.push(s.to_s)
+            s += 1
+          end
+          if value.include?(correct_data.first)
+            @key = key
+            return key
+          end
         end
-        if value.include?(correct_data.first.to_i)
+        if correct_data.include?(val)
+          @key = key
+          return key
+        elsif (value - correct_data).empty?
           @key = key
           return @key
         end
-      elsif (value - correct_data).empty?
-        @key = key
-        return @key
       end
     end
   end
 
   def clean_parameters(params)
-    #need to do ranges for age
     if params[:Version] then params[:Version].reject! { |c| c.empty? } end
     if params[:MERGE_VAR_2] then params[:MERGE_VAR_2].reject! { |c| c.empty? } end
     if params[:MERGE_VAR_3] then params[:MERGE_VAR_3].reject! { |c| c.empty? } end
@@ -156,13 +171,20 @@ class EmailsController < ApplicationController
 
   def find_line(programming_grid, to_find, email)
     found = []
-
-    # programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").each_row_streaming do |row|
-    programming_grid.email_sheet.sheet("8538- Content Marketing").each_row_streaming do |row|
+    # for single MV to version list
+    # programming_grid.email_sheet.sheet("8538- Content Marketing").each_row_streaming do |row|
+    #for comma seperated MVs
+    # programming_grid.email_sheet.sheet("Email ImpGrid_8501").each_row_streaming do |row|
+    #for age range single MV
+    programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").each_row_streaming do |row|
       row.each do |r|
         unless r.value.nil?
-          # if ((r.value.downcase.split(' ').include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").row(r.coordinate.row).include?(to_find)))
-          if ((r.value.downcase.split(' ').include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("8538- Content Marketing").row(r.coordinate.row).include?(to_find)))
+          # for single MV to version list
+          # if ((r.value.downcase.split(' ').include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("8538- Content Marketing").row(r.coordinate.row).include?(to_find)))
+          #for comma seperated MV
+          # if (((r.value.to_s.downcase.split(' ').include?((email.version.downcase || "global"))) || r.value.to_s.downcase.include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("Email ImpGrid_8501").row(r.coordinate.row).include?(to_find)))
+          # for age range
+          if (((r.value.to_s.downcase.split(' ').include?((email.version.downcase || "global"))) || r.value.to_s.downcase.include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").row(r.coordinate.row).include?(to_find)))
            found.push(row)
            return found
           end

@@ -64,10 +64,13 @@
 
 <div class="row">
   <div class="col">
-    <%= text_field_tag "Version[]", "Johnston-Willis", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "Version[]", "Johnston-Willis", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "Version[]", "Dx Co-Morbidity", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+    <%= text_field_tag "Version[]", "Younger", placeholder: "Version", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
-    <%= text_field_tag "MERGE_VAR_2[]", nil, placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "MERGE_VAR_2[]", nil, placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
+    <%= text_field_tag "MERGE_VAR_2[]", "25-55", placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
     <%= text_field_tag "MERGE_VAR_3[]", nil, placeholder: "MERGE_VAR_3", class: "form-control form-control-sm small_text"%>
@@ -76,10 +79,12 @@
     <%= text_field_tag "MERGE_VAR_5[]", nil, placeholder: "MERGE_VAR_5", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
-    <%= text_field_tag "MERGE_VAR_10[]", "JW", placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "MERGE_VAR_10[]", "JW", placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
+    <%= text_field_tag "MERGE_VAR_10[]", nil, placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
     <%= text_field_tag "MERGE_VAR_11[]", nil, placeholder: "MERGE_VAR_11", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "MERGE_VAR_11[]", "1", placeholder: "MERGE_VAR_11", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
     <%= text_field_tag "MERGE_VAR_12[]", nil, placeholder: "MERGE_VAR_12", class: "form-control form-control-sm small_text"%>
@@ -94,10 +99,13 @@
 
 <div class="row">
   <div class="col">
-    <%= text_field_tag "Version[]", "Parham", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "Version[]", "Parham", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "Version[]", "Dx Co-Morbidity", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+    <%= text_field_tag "Version[]", "Older", placeholder: "Version", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
-    <%= text_field_tag "MERGE_VAR_2[]", nil, placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "MERGE_VAR_2[]", nil, placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
+    <%= text_field_tag "MERGE_VAR_2[]", "56-86", placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
     <%= text_field_tag "MERGE_VAR_3[]", nil, placeholder: "MERGE_VAR_3", class: "form-control form-control-sm small_text"%>
@@ -106,10 +114,12 @@
     <%= text_field_tag "MERGE_VAR_5[]", nil, placeholder: "MERGE_VAR_5", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
-    <%= text_field_tag "MERGE_VAR_10[]", "PH", placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "MERGE_VAR_10[]", "PH", placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
+    <%= text_field_tag "MERGE_VAR_10[]", nil, placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
     <%= text_field_tag "MERGE_VAR_11[]", nil, placeholder: "MERGE_VAR_11", class: "form-control form-control-sm small_text"%>
+    <%# text_field_tag "MERGE_VAR_11[]", "3", placeholder: "MERGE_VAR_11", class: "form-control form-control-sm small_text"%>
   </div>
   <div class="col">
     <%= text_field_tag "MERGE_VAR_12[]", nil, placeholder: "MERGE_VAR_12", class: "form-control form-control-sm small_text"%>
@@ -122,6 +132,65 @@
   </div>
 </div>
 
+<!-- <div class="row">
+  <div class="col">
+    <%= text_field_tag "Version[]", "Dx of Heart Disease", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_2[]", nil, placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_3[]", nil, placeholder: "MERGE_VAR_3", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_5[]", nil, placeholder: "MERGE_VAR_5", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_10[]", nil, placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_11[]", "9", placeholder: "MERGE_VAR_11", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_12[]", nil, placeholder: "MERGE_VAR_12", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_13[]", nil, placeholder: "MERGE_VAR_13", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_14[]", nil, placeholder: "MERGE_VAR_14", class: "form-control form-control-sm small_text"%>
+  </div>
+</div> -->
+
+<!-- <div class="row">
+  <div class="col">
+    <%= text_field_tag "Version[]", "At Risk", placeholder: "Version", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_2[]", nil, placeholder: "MERGE_VAR_2", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_3[]", nil, placeholder: "MERGE_VAR_3", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_5[]", nil, placeholder: "MERGE_VAR_5", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_10[]", nil, placeholder: "MERGE_VAR_10", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_11[]", "11", placeholder: "MERGE_VAR_11", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_12[]", nil, placeholder: "MERGE_VAR_12", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_13[]", nil, placeholder: "MERGE_VAR_13", class: "form-control form-control-sm small_text"%>
+  </div>
+  <div class="col">
+    <%= text_field_tag "MERGE_VAR_14[]", nil, placeholder: "MERGE_VAR_14", class: "form-control form-control-sm small_text"%>
+  </div>
+</div> -->
 
 </div>
 
