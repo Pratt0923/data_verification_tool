@@ -19,22 +19,35 @@ class PG
     current_row = 0
     tab = []
     all_merge_variables = []
-    until current_row == sheet.last_row do #do something until the last row is hit
+    until current_row == sheet.last_row do
       tab.push(sheet.row(current_row))
-      if tab.flatten.include?(string_include) #when we reach the versioning section do thi
+      if tab.flatten.include?(string_include)
         all_merge_variables.push(sheet.row(current_row))
         break if ((sheet.row(current_row).all? &:blank?) == true)
       end
-      #only email
       if cust_number
         if (sheet == @email_sheet) && (self.qa_list.row(current_row).include?(cust_number.captures.first))
           @correct_row = self.qa_list.row(current_row)
           @qa_list_headers = self.qa_list.row(1)
         end
       end
-      #end only email
       current_row += 1
     end
     return all_merge_variables
   end
+
+  def find_line(programming_grid, to_find, email)
+    found = []
+    programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").each_row_streaming do |row|
+      row.each do |r|
+        unless r.value.nil?
+          if (((r.value.to_s.downcase.split(' ').include?((email.version.downcase || "global"))) || r.value.to_s.downcase.include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").row(r.coordinate.row).include?(to_find)))
+           found.push(row)
+           return found
+          end
+        end
+      end
+    end
+  end
+
 end
