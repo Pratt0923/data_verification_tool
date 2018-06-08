@@ -42,7 +42,6 @@
       <div class="col-sm">
         <h1>Programming Grid</h1>
         <% @all_emails.each do |email| %>
-
         <!-- PG from -->
         <div class="pg">
           <div class="horizontally_align_results">
@@ -50,13 +49,12 @@
             <div id="pgfrom" class="pgfrom">
               <p>
                 <!-- this is ruby code -->
-            <% unless email.qa_list_data["PG_MATCH"] == nil %>
-              <% if email.qa_list_data["PG_MATCH"]["from"] %>
-                <% email.qa_list_data["PG_MATCH"]["from"].each do |row| %>
+
+              <% if email.qa_list_data["from"] %>
+                <% email.qa_list_data["from"].each do |row| %>
                   <%= row.cell_value %>
                 <% end %>
               <% end %>
-            <% end %>
             </p>
           </div>
           </div>
@@ -67,13 +65,11 @@
             <label for="pgsubject">Subject:</label><br />
             <div id="pgsubject" class="pgsubject">
               <p>
-            <% unless email.qa_list_data["PG_MATCH"] == nil %>
-              <% if email.qa_list_data["PG_MATCH"]["subject"] %>
-                <% email.qa_list_data["PG_MATCH"]["subject"].each do |row| %>
+              <% if email.qa_list_data["subject"] %>
+                <% email.qa_list_data["subject"].each do |row| %>
                   <%= row.cell_value %>
                   <% end %>
                 <% end %>
-              <% end %>
               </p>
             </div>
           </div>
