@@ -9,15 +9,16 @@ class EmailsController < ApplicationController
   end
 
   def emails
-    @programming_grid = PG.new
+    @programming_grid = PG.new("email")
     Dir["#{ENV["HOME"]}/Desktop/QA/*.eml"].each do |email|
       mail = Mail.read(email)
       @body = mail.parts[0].body.decoded.gsub(/(?:f|ht)tps?:\/[^\s]+/, '').gsub!(/\r/, '').gsub!(/\n/, ' ')
       @body = @body.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
+      binding.pry
       @from = mail.from.first
       @subject = mail.subject
       cust_number = /(\d+)(?!.*\d)/.match(@body)
-      @merge_variable = @programming_grid.merge_variables(@programming_grid.email_sheet, "MV 10 =", cust_number)
+      @programming_grid.merge_variables(@programming_grid.email_sheet, "MV 10 =", cust_number)
       @new_qa_list = QA_LIST.new(@programming_grid)
       headers, data = @new_qa_list.sanitize_qa_list
       data.reject! { |c| c.empty? }
@@ -78,11 +79,11 @@ class EmailsController < ApplicationController
             correct_mvs_found -= [val]
           end
         end
-
       if correct_mvs_found.empty?
         return key
       end
     end
+    return "could not find version"
   end
 
 end
