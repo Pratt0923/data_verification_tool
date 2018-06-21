@@ -1,23 +1,46 @@
 function get_text_to_replace_p_tag(i, pg_section, pg_part) {
   var array = [];
   //split text
-  var split_text = $(pg_section)[i].outerText.split('');
+  if (pg_section == ".pgfrom" || pg_section == ".pgsubject") {
+    var split_text = $(pg_section)[i].outerText.split('');
+    if(pg_part != null) {
+      array.push("<p>");
+      for (i = 0; i < pg_part.index; i++) {
+        array.push(split_text[i]);
+      };
+      //split query and get length
+      var split_query_length = pg_part[0].split('').length;
+      var starting_point = pg_part.index + split_query_length;
+      array.push("<span class='highlight'>");
+      array.push(pg_part[0]);
+      array.push("</span>");
 
-  // put all text in array before query
-  if(pg_part != null) {
+      //put all text in array after query
+      for (i = 0; i <= split_text.length; i++) {
+        if (i >= starting_point) {
+          array.push(split_text[i]);
+        };
+      };
+      array.push("</p>");
+      return Array.prototype.concat.apply([], array).join("");
+    };
+  };
+
+  if (pg_section == ".pgbody" && pg_part != null){
+    // console.log(pg_part[0]);
+    var split_text = pg_part.input.split('');
+    // console.log(split_text);
     array.push("<p>");
     for (i = 0; i < pg_part.index; i++) {
       array.push(split_text[i]);
     };
-    //split query and get length
     var split_query_length = pg_part[0].split('').length;
     var starting_point = pg_part.index + split_query_length;
-
+    // TODO: it would be nice to also tell the user what lines the rows it finds are on
     array.push("<span class='highlight'>");
     array.push(pg_part[0]);
     array.push("</span>");
 
-    //put all text in array after query
     for (i = 0; i <= split_text.length; i++) {
       if (i >= starting_point) {
         array.push(split_text[i]);
@@ -36,16 +59,29 @@ function sanitize_email_sections(part, section, pgsection, i) {
   };
   part = part.join("");
 
-// performting the match
-  var pg_take_out = $(pgsection)[i].outerText.match(part);
-  return get_text_to_replace_p_tag(i, pgsection, pg_take_out);
+  if (section == ".from" || section == ".subject"){
+    var pg_take_out = $(pgsection)[i].outerText.match(part);
+    return get_text_to_replace_p_tag(i, pgsection, pg_take_out);
+  }
+
+
+  if (section == ".body") {
+    for (m = 0; m < $(".email").eq(i).find(".body").length; m++) {
+      // pull the text out of the email tabs
+      part = $(".email").eq(i).find(".body").eq(m)[0].value
+      var pg_take_out = $(".pg").eq(i).find(".part_body")[m].outerText.match(part);
+      // TODO: take the get_text_to_replace_p_tag function and put it into one giant html part so that we can replace the old HTML.
+      get_text_to_replace_p_tag(i, pgsection, pg_take_out);
+    };
+  };
 }
 
 //making the padding for the pg and the email the same
 var emails = document.getElementsByClassName("email");
 var rows = document.getElementsByClassName("pg");
 for (i = 0; i < emails.length; i++) {
-  (emails[i].style.height) = (rows[i].clientHeight.toString() + "px");
+  // TODO: make the emails and programming grid sections have the same height so that its easier to read.
+  // (emails[i].style.height) = (rows[i].clientHeight.toString() + "px");
   var from_sanitized = $(".from")[i].value.split('');
   var subject_sanitized = $(".subject")[i].value.split('');
   var body_sanitized = $(".body")[i].value.split('');

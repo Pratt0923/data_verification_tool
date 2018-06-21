@@ -15,7 +15,9 @@ ActiveRecord::Schema.define(version: 20180316190040) do
   create_table "emails", force: :cascade do |t|
     t.string "subject"
     t.string "from"
+    t.string "header"
     t.string "body"
+    t.string "footer"
     t.string "cust_num"
     t.string "qa_list_data"
     t.string "version"

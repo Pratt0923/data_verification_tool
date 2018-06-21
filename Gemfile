@@ -12,6 +12,7 @@ gem 'pry-rails'
 gem 'rails-pry'
 gem 'roo'
 gem 'builder'
+gem 'chromedriver-helper'
 
 gem 'sqlite3'
 gem 'puma', '~> 3.7'

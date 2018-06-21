@@ -40,14 +40,23 @@ class PG
     return all_merge_variables
   end
 
-  def find_line(programming_grid, to_find, email)
+  def find_line(programming_grid, to_find, email, single)
     found = []
+    # TODO: make it so the user inputs the tab so we dont have to do anything with the code
     programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").each_row_streaming do |row|
       row.each do |r|
         unless r.value.nil?
-          if (((r.value.to_s.downcase.split(' ').include?((email.version.downcase || "global"))) || r.value.to_s.downcase.include?((email.version.downcase || "global"))) && (programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").row(r.coordinate.row).include?(to_find)))
-           found.push(row)
-           return found
+          r.value.gsub!(/<(.*?)>/, "")
+          unless single
+            if (programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").row(r.coordinate.row).compact.index{|s| s.downcase.include?(email.version.downcase) || s.downcase.include?("global")}) && r.value.include?(to_find)
+             found.push(row)
+             return found
+            end
+          else
+            if r.value.include?(to_find)
+             found.push(row)
+             return found
+            end
           end
         end
       end
