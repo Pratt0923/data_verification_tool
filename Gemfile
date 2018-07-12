@@ -13,6 +13,7 @@ gem 'rails-pry'
 gem 'roo'
 gem 'builder'
 gem 'chromedriver-helper'
+gem 'eml_to_pdf'
 
 gem 'sqlite3'
 gem 'puma', '~> 3.7'

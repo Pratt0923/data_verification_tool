@@ -43,12 +43,15 @@ class PG
   def find_line(programming_grid, to_find, email, single)
     found = []
     # TODO: make it so the user inputs the tab so we dont have to do anything with the code
-    programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").each_row_streaming do |row|
+    # 8513-E-Mail Imp Grid -> older younger
+    # E-Mail Imp Grid -> HCEA112
+    programming_grid.email_sheet.sheet("E-Mail Imp Grid").each_row_streaming do |row|
       row.each do |r|
-        unless r.value.nil?
+        unless r.value.nil? || (r.value.class == Integer)
           r.value.gsub!(/<(.*?)>/, "")
           unless single
-            if (programming_grid.email_sheet.sheet("8513-E-Mail Imp Grid").row(r.coordinate.row).compact.index{|s| s.downcase.include?(email.version.downcase) || s.downcase.include?("global")}) && r.value.include?(to_find)
+
+            if (programming_grid.email_sheet.sheet("E-Mail Imp Grid").row(r.coordinate.row).compact.index{|s| s.to_s.downcase.include?(email.version.to_s.downcase) || s.to_s.downcase.include?("global")}) && r.value.include?(to_find)
              found.push(row)
              return found
             end
