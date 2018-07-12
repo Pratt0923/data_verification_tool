@@ -55,30 +55,65 @@ Seperating the main body from the `header` and the `footer` is what this method 
 
 ### compare_correct_row_with_mvs
 This method is what is comparing the QA list to the Merge Variables that the user put in on the input screen.
-## Direct Mails Controller
 
+### make_versions_match_specific_format
+Make sure the versions match a format.
+currently the versions are in `[version, version, version][MV, MV, MV][MV, MV, MV]` Format.
+This makes them into `{version=[MV, MV]}` format which is what I want for checking the variables vs the versions.
+
+### check_for_single_version_before_version_match
+This method is here just to check if the emails have only one version. if there is just one version then it does nothing. No use trying to compare versions when there is only one! :)
+
+## Direct Mails Controller
+WIP
 
 # CSS and JS
 ## Stylesheets
+### main
+This is just an overwrite of some Bootstrap. Making buttons different colors and aligning columns so that they fit on my screen.
+
+THIS IS NOT RESPONSIVE. I have made everything to have exact dimensions so that it fits on my screen. If the screen size is changed then the page may look wrong.
 
 ## Javascript
+### get_text_to_replace_p_tag
+This function is reading the text in the p tags and going through all of it, finding what matches what is in the email column, and highlighting it yellow.
+
+I'm sure there is a much better way to achieve this, but the way that I have gone with is
+1. put all text in before the match
+2. put a span in and make it have a highlight class
+3. put all the matching text in
+4. close the span
+5. put the remaining text in.
+
+This allows the highlight to happen.
 
 # Models
 ## PG Model
+Everything that directly happens to the Programming Grid will happen here.
+### merge_variables
+This is supposed to return all of the merge variables. This is not currently used but the hope is that it will be used to pull the Merge Variables out of the Programming Grid when I can get the data. It also pulls out the correct row from the QA list.
 
+This should actually be in the QA_LIST class, but I moved it incorrectly when I was refactoring code and I have not gotten around to fixing it.
 ## Email Model
-
+I wanted to serialize certain columns in the DB, so that is what this model does.
 ## QA_LIST Model
+### sanitize_qa_list
+I only wanted to deal with data I needed, so this method is pulling out everything that I don't need.
 
+### clean_parameters
+I also only wanted to deal with params that I needed. The clean params gets rid of unecessary data.
 # Views
 ## Emails
+There are 2 columns here. This is where all the data from the emails and Programming Grid get spit out. On the left is the email data. On the right is the programming grid data. I want to have it paginate eventually, but the way I have written the code makes it break every time I try, and I just don't have time to get it working right now. So it'll be ugly for a while.
 
+In addition it used to match the section of Programming Grid up to the email, but when I built the highlighter it broke the alignment, so thats on hold for now.
 ## email_merge_variables_pick
+Right now this is just a form where the user can fill out the different versions and the Merge Variables.
 
 ## layouts
-
+lots of little pieces. Explore at your own risk.
 ## Home
-
+This is the root that user lands on. Eventually I want to have instructions here.
 # Database
 
 ## Emails

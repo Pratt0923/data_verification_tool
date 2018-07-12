@@ -19,6 +19,7 @@ class PG
     end
   end
 
+# TODO: move the merge varaiables method to the QA_LIST class.
   def merge_variables(sheet, string_include, cust_number)
     current_row = 0
     tab = []
