@@ -19,28 +19,6 @@ class PG
     end
   end
 
-# TODO: move the merge varaiables method to the QA_LIST class.
-  def merge_variables(sheet, string_include, cust_number)
-    current_row = 0
-    tab = []
-    all_merge_variables = []
-    until current_row == sheet.last_row do
-      tab.push(sheet.row(current_row))
-      if tab.flatten.include?(string_include)
-        all_merge_variables.push(sheet.row(current_row))
-        break if ((sheet.row(current_row).all? &:blank?) == true)
-      end
-      if cust_number
-        if (sheet == @email_sheet) && (self.qa_list.row(current_row).include?(cust_number.captures.first))
-          @correct_row = self.qa_list.row(current_row)
-          @qa_list_headers = self.qa_list.row(1)
-        end
-      end
-      current_row += 1
-    end
-    return all_merge_variables
-  end
-
   def find_line(programming_grid, to_find, email, single)
     found = []
     # TODO: make it so the user inputs the tab so we dont have to do anything with the code
@@ -65,6 +43,48 @@ class PG
         end
       end
     end
+  end
+
+  def make_versions_match_specific_format(params)
+    h = Hash.new
+    params.values.transpose.each do |e|
+      key = e.shift
+      value = e
+      if h[key]
+        h[key].push(value)
+        h[key].flatten!
+      else
+        h[key] = value
+      end
+    end
+    return h
+  end
+
+  def pg_version_compare_vs_qa_list_version(programming_grid_mv, item, search, to_search)
+    if (to_search).include?(search)
+      programming_grid_mv -= [item]
+    end
+    return programming_grid_mv
+  end
+
+  def find_with_single_version_or_not(body_hash, i, email, single)
+    unless self.find_line(self, email.from, email, single).nil?
+      email.qa_list_data["from"] = self.find_line(self, email.from, email, single).flatten!
+    end
+    unless self.find_line(self, email.subject, email, single).nil?
+      email.qa_list_data["subject"] = self.find_line(self, email.subject, email, single).flatten!
+    end
+
+  # TODO: we need to do this for the footer and header as well
+    email.body.each do |sentance|
+      unless self.find_line(self, sentance, email, single).nil?
+        body_hash[i] = self.find_line(self, sentance, email, single).flatten!
+      else
+        body_hash[i] = [Roo::Excelx::Cell::String.new("COULD NOT FIND:  '#{sentance}'", nil, nil, nil, nil)]
+      end
+      i += 1
+    end
+    email.qa_list_data["body"] = body_hash
   end
 
 end
