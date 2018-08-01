@@ -10,6 +10,7 @@ function get_text_to_replace_p_tag(i, pg_section, pg_part) {
         array.push(split_text[l]);
       };
       //split query and get length
+      // TODO: I would like to highlight "could not finds" in a red color so it is more noticible.
       var split_query_length = pg_part[0].split('').length;
       var starting_point = pg_part.index + split_query_length;
       array.push("<span class='highlight'>");

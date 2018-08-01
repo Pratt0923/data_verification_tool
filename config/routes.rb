@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   get '/emails', to: 'emails#emails'
   get '/directmails', to: 'direct_mails#direct_mail'
   get '/clearemails', to: 'emails#clear'
+  get '/select', to: 'emails#select'
+  get '/spellcheck', to: 'emails#spellcheck'
   resources :emails
 end

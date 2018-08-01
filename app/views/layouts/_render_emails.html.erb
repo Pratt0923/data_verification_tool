@@ -1,0 +1,103 @@
+<div class="button_container">
+<%= link_to "Clear", clearemails_path, class: "button clear" %>
+<%= link_to "Spell Check", spellcheck_path(:id => @email.id), :class=>"button spell" %>
+<% @all_emails.each do |email| %>
+<%= link_to "#{email.id}", select_path(:id => email.id), :class=>"button" %>
+<% end %>
+</div>
+
+
+<div class="container down">
+  <div class="row">
+    <div class="col-sm">
+      <!-- start email -->
+        <div class="email">
+          <div class="horizontally_align_results">
+            <label for="from">From:</label>
+            <textarea class="form-control from text" rows="1" id="from"><%= @email.from %></textarea>
+          </div>
+
+          <div class="horizontally_align_results">
+            <div class="form-group">
+              <label for="subject">Subject:</label>
+              <textarea class="form-control subject text" rows="1" id="subject"><%= @email.subject %></textarea>
+            </div>
+          </div>
+
+          <div class="horizontally_align_results">
+            <div class="form-group">
+              <label for="header">Header:</label>
+              <% @email.header.each do |sentance| %>
+              <textarea class="form-control header text" rows="1" id="header"><%= sentance %></textarea>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="horizontally_align_results">
+            <div class="form-group">
+              <label for="body">Body:</label>
+              <% @email.body.each do |sentance| %>
+              <textarea class="form-control body" rows="1" id="body"><%= sentance %></textarea>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="horizontally_align_results">
+            <div class="form-group">
+              <label for="footer">Footer:</label>
+              <% @email.footer.each do |sentance| %>
+              <textarea class="form-control footer" rows="1" id="footer"><%= sentance %></textarea>
+              <% end %>
+            </div>
+          </div>
+          </div>
+          <p class="versioning">Email should be getting the:  <%= @email.version %> version. </p>
+          <!-- end email -->
+    </div>
+    <div class="col-sm">
+      <!-- start pg -->
+      <div class="col-sm">
+        <div class="pg">
+        <div class="horizontally_align_results">
+          <label for="pgfrom">From:</label><br />
+          <div id="pgfrom" class="pgfrom">
+            <p>
+            <% if @email.qa_list_data["from"] %>
+              <% @email.qa_list_data["from"].each do |row| %>
+                <%= row.cell_value %>
+              <% end %>
+            <% end %>
+            </p>
+          </div>
+        </div>
+
+        <div class="horizontally_align_results">
+          <label for="pgsubject">Subject:</label><br />
+          <div id="pgsubject" class="pgsubject">
+            <p>
+            <% if @email.qa_list_data["subject"] %>
+              <% @email.qa_list_data["subject"].each do |row| %>
+                <%= row.cell_value %>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+
+
+        <label for="pgbody">Body:</label><br />
+
+        <div id="pgbody" class="pgbody">
+        <% @email.qa_list_data["body"].each do |k,v| %>
+          <div class="part_body" id="part_body">
+            <% v.each do |match| %>
+              <%= match.value %>
+            <% end %>
+          </div>
+        <% end %>
+        </div>
+      </div>
+      <!-- end pg -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <%= link_to "Clear", clearemails_path, class: "button clear" %>
+    <%= link_to "Back to #{@email.id}", select_path(:id => @email.id), :class=>"button" %>
+
+
+    <div class="spells">
+    <% @misspellings.each do |word| %>
+    <%= word %>
+    <% end %>
+    </div>
+  </body>
+</html>

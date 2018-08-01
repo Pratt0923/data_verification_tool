@@ -4,6 +4,7 @@ class Email < ActiveRecord::Base
   serialize :header, Array
   serialize :footer, Array
 
+
   def self.pull_out_header_and_footer_from_email(body)
     index_header = body.index{|s| s.include?("browser")}
     index_footer = body.index{|s| s.include?("About this email")}
@@ -49,6 +50,14 @@ class Email < ActiveRecord::Base
     body.flatten!
     body = body.map {|l| l.strip}
     return body, cust_number
+  end
+
+  def self.spellchecker(section, array)
+    section.each do |line|
+      unless line.correct?
+        array.push(line.misspellings)
+      end
+    end
   end
 
 end

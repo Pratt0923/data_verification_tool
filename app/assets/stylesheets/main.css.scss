@@ -4,12 +4,13 @@
 //all the css gets done here.
 p {
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
 }
 
 body > div {
   margin: 0;
+  margin-top: 2em;
   padding: 0;
 }
 
@@ -45,4 +46,77 @@ body > div > div > div.col {
 .highlight {
   background-color: yellow;
   color: black;
+}
+
+.red {
+  background-color: lightcoral;
+  color: black;
+}
+
+.button_container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.button {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 10px;
+  overflow: hidden;
+  float: left;
+  display: block;
+  text-align: center;
+  background-color: #a2b9bc;
+  padding: 1em;
+  border-radius: 3px;
+  border-width: 4px;
+  border-color: black;
+  text-decoration: none;
+  color: black;
+}
+
+.button:hover {
+  background-color: #6b5b95;
+  text-decoration: none;
+  color: white;
+}
+
+.clear {
+  background-color: #b2ad7f;
+  float: right;
+}
+.clear:hover {
+  background-color: #878f99;
+  color: white;
+}
+
+.down {
+  margin-top: 10em;
+}
+
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.spells {
+  margin-top: 5em;
+  margin: 1em;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+}
+
+.margin-left-some {
+  margin-left: 3em;
+}
+
+.coral {
+  background-color: lightcoral;
+}
+
+.yellow {
+  background-color: yellow;
 }

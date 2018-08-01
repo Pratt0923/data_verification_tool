@@ -19,6 +19,7 @@ class PG
     end
   end
 
+# TODO: right now a comma will break the find_line and it will not find the line. It needs to be able to find lines
   def find_line(programming_grid, to_find, email, single)
     found = []
     # TODO: make it so the user inputs the tab so we dont have to do anything with the code
@@ -46,6 +47,8 @@ class PG
   end
 
   def make_versions_match_specific_format(params)
+    params_duplicate = params
+    params.delete("page")
     h = Hash.new
     params.values.transpose.each do |e|
       key = e.shift
@@ -80,7 +83,7 @@ class PG
       unless self.find_line(self, sentance, email, single).nil?
         body_hash[i] = self.find_line(self, sentance, email, single).flatten!
       else
-        body_hash[i] = [Roo::Excelx::Cell::String.new("COULD NOT FIND:  '#{sentance}'", nil, nil, nil, nil)]
+        body_hash[i] = [Roo::Excelx::Cell::String.new("<span class='red'>COULD NOT FIND</span>:  '#{sentance}'", nil, nil, nil, nil)]
       end
       i += 1
     end

@@ -4,12 +4,17 @@
     <meta charset="utf-8">
   </head>
   <body>
+    <%= link_to "Clear", clearemails_path, class: "button clear" %>
+
     <div class="">
       <p class="text-center">Welcome to Quality Assistance</p>
       <p class="text-center">Your personal assistant to automating manual QAs</p>
       <p class="text-center">Begin by choosing the QA type you wish to analyze...</p>
-
-      <p>If you just have one version, put "One Version" into the "Version" column of the next page</p>
+      <h3 class="margin-left-some">Readme:</h4>
+      <p class="margin-left-some">If you just have one version, put "One Version" into the "Version" column of the next page</p>
+      <h5 class="margin-left-some">Colors:</h4>
+        <p class="margin-left-some"> <span class="yellow">YELLOW</span> means that the text in the programming grid matches the text in the email at that point.</p>
+        <p class="margin-left-some"> <span class="coral">CORAL</span> means that the automation could not find the sentance it was looking for.</p>
     </div>
   </body>
 </html>

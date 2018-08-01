@@ -15,13 +15,11 @@ class EmailsController < ApplicationController
     @new_qa_list = QA_LIST.new(@programming_grid)
     Dir["#{ENV["HOME"]}/Desktop/QA/*.eml"].each do |email|
       mail = Mail.read(email)
-
       @body, cust_number = Email.changes_to_body(mail)
       @from = mail.from.first
       @subject = mail.subject
       @new_qa_list.merge_variables(@programming_grid.email_sheet, "MV 10 =", cust_number, @programming_grid.email_sheet)
       @new_qa_list, qa_list = @new_qa_list.make_new_qa_list_and_clean
-
       @footer, @header, @body = Email.pull_out_header_and_footer_from_email(@body)
       current_email = Email.create(
         subject: @subject,
@@ -41,16 +39,31 @@ class EmailsController < ApplicationController
       else
         @programming_grid.find_with_single_version_or_not(body_hash, i, current_email, true)
       end
-      # TODO: return something if we don't find the line in the grid. maybe the thing we were supposed to find?
       current_email.save!
     end
     @all_emails = Email.all
+    @email = Email.first
   end
 
   def clear
     @all_emails = Email.all
     Email.delete_all
     redirect_to :root
+  end
+
+  def spellcheck
+    misspellings = []
+    @all_email = Email.all
+    @email = Email.find(params[:id])
+    Email.spellchecker(@email.body, misspellings)
+    Email.spellchecker(@email.header, misspellings)
+    Email.spellchecker(@email.footer, misspellings)
+    @misspellings = misspellings.flatten!
+  end
+
+  def select
+    @all_emails = Email.all
+    @email = Email.find(params[:id])
   end
 
 end
