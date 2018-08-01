@@ -2,6 +2,17 @@
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 //all the css gets done here.
+body >div {
+  background-color: #FBF5F3;
+}
+
+html {
+  background-color: #FBF5F3;
+}
+.main {
+  background-color: #FBF5F3;
+
+}
 p {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -10,7 +21,7 @@ p {
 
 body > div {
   margin: 0;
-  margin-top: 2em;
+  // margin-top: 2em;
   padding: 0;
 }
 
@@ -54,6 +65,7 @@ body > div > div > div.col {
 }
 
 .button_container {
+  background-color: #0F0E0E;
   position: fixed;
   top: 0;
   width: 100%;
@@ -67,28 +79,54 @@ body > div > div > div.col {
   overflow: hidden;
   float: left;
   display: block;
+  border: 1px solid white;
+
   text-align: center;
-  background-color: #a2b9bc;
+  background-color: #522B47;
   padding: 1em;
   border-radius: 3px;
-  border-width: 4px;
-  border-color: black;
+  // border-width: 4px;
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 .button:hover {
-  background-color: #6b5b95;
+  background-color: #0F0E0E;
+  text-decoration: none;
+  color: white;
+}
+
+.spell {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 10px;
+  overflow: hidden;
+  float: left;
+  display: block;
+  border: 1px solid white;
+
+  text-align: center;
+  background-color: #7B0828;
+  padding: 1em;
+  border-radius: 3px;
+  // border-width: 4px;
+  text-decoration: none;
+  color: white;
+}
+
+.spell:hover {
+  background-color: #0F0E0E;
   text-decoration: none;
   color: white;
 }
 
 .clear {
-  background-color: #b2ad7f;
+  background-color: #8DAA9D;
+  color: white;
   float: right;
 }
 .clear:hover {
-  background-color: #878f99;
+  background-color: #0F0E0E;
   color: white;
 }
 
@@ -102,8 +140,9 @@ body > div > div > div.col {
 }
 
 .spells {
-  margin-top: 5em;
-  margin: 1em;
+  margin-top: 100px;
+  padding: 1em;
+  // margin: 1em;
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   display: inline-block;
@@ -119,4 +158,58 @@ body > div > div > div.col {
 
 .yellow {
   background-color: yellow;
+}
+
+.center {
+  background-color: #8DAA9D;
+  color: white;
+  margin: auto;
+  width: 50%;
+  // border: 3px solid green;
+  padding: 2em;
+}
+
+.margin_top {
+  margin-top: 2em;
+}
+
+.email_button {
+  background-color: #522B47;
+  padding: 1em;
+  color: white;
+  text-decoration: none;
+}
+
+.email_button:hover {
+  background-color: #0F0E0E;
+  color: white;
+  text-decoration: none;
+}
+
+
+.dm_button {
+  background-color: #7B0828;
+  padding: 1em;
+  color: white;
+  text-decoration: none;
+}
+
+.dm_button:hover {
+  background-color: #0F0E0E;
+  color: white;
+  text-decoration: none;
+}
+
+
+.clear_button {
+  background-color: #8DAA9D;
+  padding: 1em;
+  color: white;
+  text-decoration: none;
+}
+
+.clear_button:hover {
+  background-color: #0F0E0E;
+  color: white;
+  text-decoration: none;
 }

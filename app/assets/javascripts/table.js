@@ -81,7 +81,12 @@ function sanitize_email_sections(part, section, pgsection, i) {
       // pull the text out of the email tabs
       part = $(".email").eq(i).find(".body").eq(m)[0].value
       var pg_take_out = $(".pg").eq(i).find(".part_body")[m].outerText.match(part);
-      $(".pg").eq(i).find('.part_body').eq(m).html(get_text_to_replace_p_tag(i, pgsection, pg_take_out))
+      // this is undefined sometimes? why? what is happening here?
+      if(pg_take_out) {
+        $(".pg").eq(i).find('.part_body').eq(m).html(get_text_to_replace_p_tag(i, pgsection, pg_take_out));
+      } else {
+        $(".pg").eq(i).find('.part_body').eq(m).html("<p><span class='red'>COULD NOT FIND</span>" + " " + part + "</p>");
+      };
     };
   };
 }

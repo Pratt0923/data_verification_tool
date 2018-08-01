@@ -1,6 +1,6 @@
 <div class="button_container">
 <%= link_to "Clear", clearemails_path, class: "button clear" %>
-<%= link_to "Spell Check", spellcheck_path(:id => @email.id), :class=>"button spell" %>
+<%= link_to "Spell Check", spellcheck_path(:id => @email.id), :class=>"spell" %>
 <% @all_emails.each do |email| %>
 <%= link_to "#{email.id}", select_path(:id => email.id), :class=>"button" %>
 <% end %>
