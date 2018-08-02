@@ -37,8 +37,11 @@ class EmailsController < ApplicationController
       current_email.version = Email.compare_correct_row_with_mvs(params, current_email, @new_qa_list, @programming_grid)
       body_hash = {}
       EmlToPdf.convert("#{email}", "#{ENV["HOME"]}/Desktop/QA/'#{email_count}'.pdf")
-      binding.pry
-      current_email.qa_list_data["image"] = "#{ENV["HOME"]}/Desktop/QA/#{email_count}.pdf"
+
+      session = GoogleDrive::Session.from_config("config.json")
+      upload = session.upload_from_file("#{ENV["HOME"]}/Desktop/QA/#{email_count}.pdf", "#{email_count}.txt", convert: false)
+      current_email.qa_list_data["image"] = upload.id
+
       email_count += 1
       i = 0
       unless current_email.version == "single version"

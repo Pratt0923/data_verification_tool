@@ -25,7 +25,7 @@ gem 'sqlite3'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'carrierwave', '~> 1.0'
+gem 'google_drive'
 
 
 group :development, :test do

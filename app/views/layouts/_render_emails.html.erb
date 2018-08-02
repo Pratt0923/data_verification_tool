@@ -5,8 +5,6 @@
 <%= link_to "#{email.id}", select_path(:id => email.id), :class=>"button" %>
 <% end %>
 </div>
-<!-- chrome wont let you do this apparently "can't load local resource" -->
-<img src="file:///<%= @email.qa_list_data["image"] %>"  width="800px" height="100px" alt="">
 
 <div class="container down">
   <div class="row">
@@ -15,10 +13,6 @@
         <div class="email">
           <div class="horizontally_align_results">
             <label for="from">From:</label>
-            <p>
-              <%= @email.qa_list_data["image"] %>
-            </p>
-
             <textarea class="form-control from text" rows="1" id="from"><%= @email.from %></textarea>
           </div>
 
@@ -57,6 +51,7 @@
           </div>
           </div>
           <p class="versioning">Email should be getting the:  <%= @email.version %> version. </p>
+          <iframe src="https://drive.google.com/file/d/<%= @email.qa_list_data["image"]%>/preview" width="640" height="700"></iframe>
           <!-- end email -->
     </div>
     <div class="col-sm">
