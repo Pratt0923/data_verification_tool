@@ -11,10 +11,13 @@ class EmailsController < ApplicationController
   end
 
   def emails
+    email_count = 1
+    # binding.pry
     @programming_grid = PG.new("email")
     @new_qa_list = QA_LIST.new(@programming_grid)
     Dir["#{ENV["HOME"]}/Desktop/QA/*.eml"].each do |email|
       mail = Mail.read(email)
+
       @body, cust_number = Email.changes_to_body(mail)
       @from = mail.from.first
       @subject = mail.subject
@@ -33,6 +36,10 @@ class EmailsController < ApplicationController
       )
       current_email.version = Email.compare_correct_row_with_mvs(params, current_email, @new_qa_list, @programming_grid)
       body_hash = {}
+      EmlToPdf.convert("#{email}", "#{ENV["HOME"]}/Desktop/QA/'#{email_count}'.pdf")
+      binding.pry
+      current_email.qa_list_data["image"] = "#{ENV["HOME"]}/Desktop/QA/#{email_count}.pdf"
+      email_count += 1
       i = 0
       unless current_email.version == "single version"
         @programming_grid.find_with_single_version_or_not(body_hash, i, current_email, false)

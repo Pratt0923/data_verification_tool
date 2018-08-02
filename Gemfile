@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 ruby '2.4.1'
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 5.2'
 gem 'mail'
 gem 'pry-rails'
 gem 'rails-pry'
@@ -25,6 +25,7 @@ gem 'sqlite3'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'carrierwave', '~> 1.0'
 
 
 group :development, :test do
