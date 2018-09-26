@@ -1,6 +1,51 @@
-# README
+# Basics
+# About this Tool.
+  Hey everyone! Thank you for your interest in my data verification tool. This tool is to help users compare data. Right now I've made it just for use at my own company, but it can
+  be modified for your company too.
+
+## What does currently
+  1. Takes in the Programming Grid, the QA list, and the emails
+  2. Makes the user input the Versions and the Merge Variables
+  3. Uses those Merge Variables to find out which version each email is, via the QA List
+  4. Uses the version to compare each sentence in the email to the Programming Grid and find a match
+  5. Highlight the match if there is one. If not it writes "COULD NOT FOUND" next to the sentence
+
+## What it checks for
+  1. Takes in the Programming Grid, the QA list, and the emails
+  2. Makes the user input the Versions and the Merge Variables
+  3. Finds the customer number listed as an integer at the bottom of each email
+  3. Uses those customer numbers to find out which version each email is, via the QA List
+  4. Uses the version to compare each sentence in the email to the Programming Grid and find a match
+  5. Highlight the match if there is one. If not it writes "COULD NOT FOUND" next to the sentence.
+
+## What it DOES NOT check for
+  Currently this codes does not check for:
+  1. Links
+  2. Multiple tabs in the programming grid
 
 
+# Caveats to use
+  * The programming grid must be renamed to "Programming_Grid.xlsx" for the code to find it.
+  * To use this there must be only one tab in the programming grid being used. That tab must be called "Email". This is how the code identifies the tab to find.
+  * The version in the Merge Variable input fields MUST be the same as the ones in the programming grid.
+
+    For example if I say that:
+    Version => Merge Variable
+    UNC Cardio => A
+    UNC Pulmonary => B
+
+    I cannot use just "Cardio" or "Pulmonary" in the details of my programming grid. I must use "UNC Cardio" or "UNC Pulmonary".
+
+  * Each line in the programming grid must have a version label on it or it will be skipped. This means that if I want to make half of my grid for UNC Cardio, and half for UNC Pulmonary,
+  I will have to state that in every line. I CANNOT put "UNC Cardio" at the start of the programming grid and expect this program to self identify if something is UNC Cardio or UNC Pulmonary.
+
+  These versions can be seperated by commas. So if you have "UNC Maternity" as well, you could have something that is "UNC Cardio, UNC Pulmonary" and it would realize that what you have is going to apply to both the Cardio and the Pulmonary version, but not the Maternity one.
+
+  "GLOBAL" can also be used like this. If you have something, like a header, that applies to all the versions, you can put "GLOBAL" in the column instead of each version. This will save you time and allow you to not put every version in, especially if there are a lot of versions.
+
+
+
+# Technical
 * Ruby version 2.4.1
 
 To get started running this locally
@@ -11,13 +56,6 @@ To get started running this locally
 * `bundle install`
 * `rails db:migrate`
 * To run the code locally type `rails s` into the command line to start it. To stop this process type ctrl + c.
-
-What this code does is
-1. Takes in the Programming Grid, the QA list, and the emails
-2. Makes the user input the Versions and the Merge Variables
-3. Uses those Merge Variables to find out which version each email is, via the QA List
-4. Uses the version to compare each sentence in the email to the Programming Grid and find a match
-5. Highlight the match if there is one. If not it writes "COULD NOT FOUND" next to the sentence.
 
 # Controllers
 This is where the data from ruby is passed to the HTML so that the HTML can display it on the page.

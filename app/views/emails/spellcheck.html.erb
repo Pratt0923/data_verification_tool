@@ -7,7 +7,7 @@
   <body class="main">
     <div class="button_container">
     <%= link_to "Clear", clearemails_path, class: "button clear" %>
-    <%= link_to "Back to #{@email.id}", select_path(:id => @email.id), :class=>"button" %>
+    <%= link_to "Back to #{@email.version}", select_path(:id => @email.id), :class=>"button" %>
   </div>
 
     <div class="spells">

@@ -1,7 +1,7 @@
 function get_text_to_replace_p_tag(i, pg_section, pg_part) {
-
   //split text
   if (pg_section == ".pgfrom" || pg_section == ".pgsubject") {
+
     var array = [];
     var split_text = $(pg_section)[i].outerText.split('');
     if(pg_part != null) {
@@ -10,7 +10,6 @@ function get_text_to_replace_p_tag(i, pg_section, pg_part) {
         array.push(split_text[l]);
       };
       //split query and get length
-      // TODO: I would like to highlight "could not finds" in a red color so it is more noticible.
       var split_query_length = pg_part[0].split('').length;
       var starting_point = pg_part.index + split_query_length;
       array.push("<span class='highlight'>");
@@ -31,6 +30,7 @@ function get_text_to_replace_p_tag(i, pg_section, pg_part) {
 
 // TODO: the last version is replacing the first version. I need to stop this somehow
   if (pg_section == ".pgbody" && pg_part != null){
+
     var array = [];
     var split_text = pg_part.input.split('');
 
@@ -85,7 +85,10 @@ function sanitize_email_sections(part, section, pgsection, i) {
       if(pg_take_out) {
         $(".pg").eq(i).find('.part_body').eq(m).html(get_text_to_replace_p_tag(i, pgsection, pg_take_out));
       } else {
-        $(".pg").eq(i).find('.part_body').eq(m).html("<p><span class='red'>COULD NOT FIND</span>" + " " + part + "</p>");
+        // console.log($(".pg").eq(i).find('.part_body').eq(m));
+        // console.log($(".pg").eq(i).find(".part_body")[m].outerText)
+
+        $(".pg").eq(i).find('.part_body').eq(m).html("<p><span class='red'>MISSING FROM PG</span>" + " " + part + "</p>");
       };
     };
   };
@@ -96,7 +99,7 @@ var emails = document.getElementsByClassName("email");
 var rows = document.getElementsByClassName("pg");
 for (i = 0; i < emails.length; i++) {
   // TODO: make the emails and programming grid sections have the same height so that its easier to read.
-  // (emails[i].style.height) = (rows[i].clientHeight.toString() + "px");
+  // (emails[i].style.height) = (rows[i].clientHeight.toString() + "px")
   var from_sanitized = $(".from")[i].value.split('');
   var subject_sanitized = $(".subject")[i].value.split('');
   var body_sanitized = $(".body")[i].value.split('');
@@ -108,3 +111,5 @@ if ($('.pgfrom')[i].outerText != "") {
   $('.pgsubject').eq(i).html(sanitize_email_sections(subject_sanitized, ".subject", ".pgsubject", i));
     sanitize_email_sections(body_sanitized, ".body", ".pgbody", i)
 };
+
+$('.temp_information').data('temp')

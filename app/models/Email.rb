@@ -15,6 +15,10 @@ class Email < ActiveRecord::Base
   end
 
   def self.compare_correct_row_with_mvs(params, current_email, qa_list, programming_grid)
+    # something is going on here where versions are not correct if they include too many MV's and commas.
+    # must find out what it is
+    # TODO: !!!!!!!!!!
+    
     pg_versions = qa_list.check_for_single_version_before_version_match(params, current_email)
     h = programming_grid.make_versions_match_specific_format(params)
     h.each_pair do |key, value|
@@ -39,16 +43,16 @@ class Email < ActiveRecord::Base
   end
 
   def self.changes_to_body(mail)
-    body = mail.parts[0].body.decoded.gsub(/(?:f|ht)tps?:\/[^\s]+/, '').gsub(/\n/, ' ').gsub(/\w*(@healthgrades.com)/, "")
+    body = mail.parts[0].body.decoded.gsub(/(?:f|ht)tps?:\/[^\s]+/, '').gsub(/\n/, ' ').gsub(/\w*(@healthgrades.com)/, "").gsub("<", "")
     body = body.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '')
     cust_number = /(\d+)(?!.*\d)/.match(body)
     body = body.split("\r").map {|line|
-      line.strip
+      line.squish
     }
     body.keep_if {|line| !line.empty?}   #=> ["a", "e"]
-    body = body.map {|l| l.split( ". " || "? " || "! " )}
+    body = body.map {|l| l.split( ". " || "? " || "! " || ", ")}
     body.flatten!
-    body = body.map {|l| l.strip}
+    body = body.map {|l| l.squish}
     return body, cust_number
   end
 

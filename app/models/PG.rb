@@ -20,24 +20,28 @@ class PG
   end
 
 # TODO: right now a comma will break the find_line and it will not find the line. It needs to be able to find lines
-  def find_line(programming_grid, to_find, email, single)
+  def find_line(programming_grid, to_find, email, single, pg_lines_used)
     found = []
     # TODO: make it so the user inputs the tab so we dont have to do anything with the code
     # 8513-E-Mail Imp Grid -> older younger
     # E-Mail Imp Grid -> HCEA112
-    programming_grid.email_sheet.sheet("E-Mail Imp Grid").each_row_streaming do |row|
+    programming_grid.email_sheet.sheet("Email").each_row_streaming do |row|
       row.each do |r|
         unless r.value.nil? || (r.value.class == Integer)
           r.value.gsub!(/<(.*?)>/, "")
+          r.value.gsub!(/’+/, "")
+          r.value.gsub!(/\s{2,20}/, " ")
           unless single
 
-            if (programming_grid.email_sheet.sheet("E-Mail Imp Grid").row(r.coordinate.row).compact.index{|s| s.to_s.downcase.include?(email.version.to_s.downcase) || s.to_s.downcase.include?("global")}) && r.value.include?(to_find)
+            if (programming_grid.email_sheet.sheet("Email").row(r.coordinate.row).compact.index{|s| s.to_s.downcase.include?(email.version.to_s.downcase) || s.to_s.downcase.include?("global")}) && r.value.include?(to_find)
              found.push(row)
+             pg_lines_used.push(r.coordinate.row)
              return found
             end
           else
             if r.value.include?(to_find)
              found.push(row)
+             pg_lines_used.push(r.coordinate.row)
              return found
             end
           end
@@ -70,24 +74,32 @@ class PG
     return programming_grid_mv
   end
 
-  def find_with_single_version_or_not(body_hash, i, email, single)
-    unless self.find_line(self, email.from, email, single).nil?
-      email.qa_list_data["from"] = self.find_line(self, email.from, email, single).flatten!
+  def find_with_single_version_or_not(body_hash, i, email, single, pg_lines_used)
+    unless self.find_line(self, email.from, email, single, pg_lines_used).nil?
+      email.qa_list_data["from"] = self.find_line(self, email.from, email, single, pg_lines_used).flatten!
     end
-    unless self.find_line(self, email.subject, email, single).nil?
-      email.qa_list_data["subject"] = self.find_line(self, email.subject, email, single).flatten!
+    unless self.find_line(self, email.subject, email, single, pg_lines_used).nil?
+      email.qa_list_data["subject"] = self.find_line(self, email.subject, email, single, pg_lines_used).flatten!
     end
 
   # TODO: we need to do this for the footer and header as well
+
     email.body.each do |sentance|
-      unless self.find_line(self, sentance, email, single).nil?
-        body_hash[i] = self.find_line(self, sentance, email, single).flatten!
+      unless self.find_line(self, sentance, email, single, pg_lines_used).nil?
+        body_hash[i] = self.find_line(self, sentance, email, single, pg_lines_used).flatten!
       else
-        body_hash[i] = [Roo::Excelx::Cell::String.new("<span class='red'>COULD NOT FIND</span>:  '#{sentance}'", nil, nil, nil, nil)]
+        body_hash[i] = [Roo::Excelx::Cell::String.new("<span class='red'>MISSING FROM PG</span>:  '#{sentance}'", nil, nil, nil, nil)]
       end
       i += 1
     end
     email.qa_list_data["body"] = body_hash
+  end
+
+  def check_if_versions_all_present(all, list_of_found_versions)
+    list_of_found_versions.each do |version|
+      all.delete(version)
+    end
+    return all
   end
 
 end

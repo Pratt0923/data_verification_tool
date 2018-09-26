@@ -2,7 +2,7 @@
 <%= link_to "Clear", clearemails_path, class: "button clear" %>
 <%= link_to "Spell Check", spellcheck_path(:id => @email.id), :class=>"spell" %>
 <% @all_emails.each do |email| %>
-<%= link_to "#{email.id}", select_path(:id => email.id), :class=>"button" %>
+<%= link_to "#{email.version}", select_path(:id => email.id), :class=>"button" %>
 <% end %>
 </div>
 
@@ -13,13 +13,15 @@
         <div class="email">
           <div class="horizontally_align_results">
             <label for="from">From:</label>
-            <textarea class="form-control from text" rows="1" id="from"><%= @email.from %></textarea>
+            <p id="from"><%= @email.from %></p>
+            <div class=""></div>
+            <textarea class="from text" rows="1" id="from"><%= @email.from %></textarea>
           </div>
 
           <div class="horizontally_align_results">
             <div class="form-group">
               <label for="subject">Subject:</label>
-              <textarea class="form-control subject text" rows="1" id="subject"><%= @email.subject %></textarea>
+              <textarea class="subject text" rows="1" id="subject"><%= @email.subject %></textarea>
             </div>
           </div>
 
@@ -27,7 +29,7 @@
             <div class="form-group">
               <label for="header">Header:</label>
               <% @email.header.each do |sentance| %>
-              <textarea class="form-control header text" rows="1" id="header"><%= sentance %></textarea>
+              <textarea class="header text" rows="1" id="header"><%= sentance %></textarea>
               <% end %>
             </div>
           </div>
@@ -36,7 +38,7 @@
             <div class="form-group">
               <label for="body">Body:</label>
               <% @email.body.each do |sentance| %>
-              <textarea class="form-control body" rows="1" id="body"><%= sentance %></textarea>
+              <textarea class="body text" rows="1" id="body"><%= sentance %></textarea>
               <% end %>
             </div>
           </div>
@@ -45,14 +47,26 @@
             <div class="form-group">
               <label for="footer">Footer:</label>
               <% @email.footer.each do |sentance| %>
-              <textarea class="form-control footer" rows="1" id="footer"><%= sentance %></textarea>
+              <textarea class="footer text" rows="1" id="footer"><%= sentance %></textarea>
               <% end %>
             </div>
           </div>
           </div>
           <p class="versioning">Email should be getting the:  <%= @email.version %> version. </p>
-          <iframe src="https://drive.google.com/file/d/<%= @email.qa_list_data["image"]%>/preview" width="640" height="700"></iframe>
+          <iframe src="https://drive.google.com/file/d/<%= @email.qa_list_data["image"]%>/preview" width="500" height="700"></iframe>
           <!-- end email -->
+          <% if @versions_not_preset %>
+            <% unless @versions_not_preset.empty? %>
+              <p>Versions missing are:
+              <% @versions_not_preset.each do |version, v| %>
+              <br>
+              <%= version %>
+              <% end %>
+              </p>
+            <% end %>
+          <% end %>
+
+
     </div>
     <div class="col-sm">
       <!-- start pg -->
@@ -88,6 +102,7 @@
         <label for="pgbody">Body:</label><br />
 
         <div id="pgbody" class="pgbody">
+
         <% @email.qa_list_data["body"].each do |k,v| %>
           <div class="part_body" id="part_body">
             <% v.each do |match| %>
@@ -95,7 +110,7 @@
             <% end %>
           </div>
         <% end %>
-        </div>
+
       </div>
       <!-- end pg -->
     </div>

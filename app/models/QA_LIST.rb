@@ -42,11 +42,12 @@ class QA_LIST
     current_row = 0
     tab = []
     all_merge_variables = []
-    until current_row == sheet.last_row do
+    until current_row == @programming_grid.qa_list.last_row + 1 do
+
       tab.push(sheet.row(current_row))
       if tab.flatten.include?(string_include)
         all_merge_variables.push(sheet.row(current_row))
-        break if ((sheet.row(current_row).all? &:blank?) == true)
+        # break if ((sheet.row(current_row).all? &:blank?) == true)
       end
       if cust_number
         if (sheet == email_sheet) && (@programming_grid.qa_list.row(current_row).include?(cust_number.captures.first))
