@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: 'pages#home'
-  get '/epick', to: 'emails#email_merge_variables_pick'
+  get '/epick', to: 'emails#upload'
   post '/emails', to: 'emails#emails'
   get '/dmpick', to: 'direct_mails#dm_merge_variables_pick'
   get '/emails', to: 'emails#emails'
@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/clearemails', to: 'emails#clear'
   get '/select', to: 'emails#select'
   get '/spellcheck', to: 'emails#spellcheck'
+  post '/display_mvs', to: 'emails#email_merge_variables_pick'
   resources :emails
-  
+
 end

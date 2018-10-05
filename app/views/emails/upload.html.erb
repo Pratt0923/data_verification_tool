@@ -1,0 +1,15 @@
+<!-- TODO: this page is really ugly when the screen gets smaller. it would be nice to make it not so ugly. -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body class="main">
+    <div class="margin_top">
+      <%= form_tag('/display_mvs', multipart: true) do %>
+      <%= file_field_tag 'item' %>
+      <%= submit_tag "submit file"%>
+      <% end %>
+  </body>
+</html>

@@ -8,23 +8,8 @@ class EmailsController < ApplicationController
    skip_before_action :verify_authenticity_token
 
   def email_merge_variables_pick
-    @versions = {
-      "Woodlawn"=>["WA"],
-      "Wesley Medical Center"=>["WB"],
-      "Wesley West"=>["WC"],
-      "Derby"=>["WD"]
-
-      # "ED Redirect - With Children"=>["15"],
-      # "ED Redirect - Without Children"=>["16"]
-
-      # "Orange Park"=>["OP"],
-      # "Memorial Satilla Health"=>["ST"],
-      # "Memorial Hospital"=>["ME"],
-      # "Colleton Medical Center"=>["CO"],
-      # "Trident Health"=>["TR"],
-      # "Grand Strand"=>["GS"],
-      # "Fairview Park"=>["FP"]
-    }
+    csv_text = File.read(params[:item].tempfile)
+    @csv = CSV.parse(csv_text, :headers => true)
   end
 
   def emails
@@ -109,4 +94,6 @@ class EmailsController < ApplicationController
     @email = Email.find(params[:id])
   end
 
+  def upload
+  end
 end
